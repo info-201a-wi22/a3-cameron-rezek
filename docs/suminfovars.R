@@ -68,26 +68,48 @@ black_pop_ne <- sum(northeast_df$black_pop_15to64)   # Total Black Working Popul
 
 white_pop_ne <- sum(northeast_df$white_pop_15to64)   # Total white working population
 
+latinx_pop_ne <- sum(northeast_df$latinx_pop_15to64, na.rm = TRUE)
+
+aapi_pop_ne <- sum(northeast_df$aapi_pop_15to64, na.rm = TRUE)
+
 imprisoned_black_pop_ne <- sum(northeast_df$black_jail_pop, na.rm = TRUE) +
   sum(northeast_df$black_prison_pop, na.rm = TRUE) # Number of imprisoned black people
 
 imprisoned_white_pop_ne <- sum(northeast_df$white_jail_pop, na.rm =TRUE) +
   sum(northeast_df$white_prison_pop, na.rm= TRUE) # Number of imprisoned white people
 
+imprisoned_latinx_pop_ne <- sum(northeast_df$latinx_jail_pop, na.rm =TRUE) +
+  sum(northeast_df$latinx_prison_pop, na.rm= TRUE)
+
+imprisoned_aapi_pop_ne <- sum(northeast_df$aapi_jail_pop, na.rm =TRUE) +
+  sum(northeast_df$aapi_prison_pop, na.rm= TRUE)
+
 total_imprisoned_pop_ne <- sum(northeast_df$total_jail_pop, na.rm = TRUE) + 
   sum(northeast_df$total_prison_pop, na.rm = TRUE) # Number of imprisoned Total
 
-black_imprisoned_ratio_to_prison_pop_ne <- (imprisoned_black_pop_ne / total_imprisoned_pop_ne) * 100  # Ratio of black prisoners within the total prison population
+black_imprisoned_ratio_to_prison_pop_ne <- (imprisoned_black_pop_ne / total_imprisoned_pop_ne)  # Ratio of black prisoners within the total prison population
 
-white_imprisoned_ratio_to_prison_pop_ne <- (imprisoned_white_pop_ne / total_imprisoned_pop_ne) * 100 # Ratio of white prisoners within the total prison population
+white_imprisoned_ratio_to_prison_pop_ne <- (imprisoned_white_pop_ne / total_imprisoned_pop_ne) # Ratio of white prisoners within the total prison population
+
+latinx_imprisoned_ratio_to_prison_pop_ne <- (imprisoned_latinx_pop_ne/ total_imprisoned_pop_ne)
+
+aapi_imprisoned_ratio_to_prison_pop_ne <- (imprisoned_aapi_pop_ne/ total_imprisoned_pop_ne)
 
 black_imprisoned_to_black_pop_ratio_ne <- (imprisoned_black_pop_ne / black_pop_ne) * 100 # Ratio of black prisoners within the black population
 
 white_imprisoned_to_white_pop_ratio_ne <- (imprisoned_white_pop_ne / white_pop_ne) * 100 # Ratio of white prisoners within the white population
 
+latinx_imprisoned_to_latinx_pop_ratio_ne <- (imprisoned_latinx_pop_ne / latinx_pop_ne) * 100
+
+aapi_imprisoned_to_aapi_pop_ratio_ne <- (imprisoned_aapi_pop_ne / aapi_pop_ne) * 100
+
 black_pop_ratio_ne <- (black_pop_ne / total_pop_ne) * 100 # Ratio of black people in the total NE population
 
 white_pop_ratio_ne <- (white_pop_ne / total_pop_ne) * 100 # Ratio of white people in the total NE population
+
+latinx_pop_ratio_ne <- (latinx_pop_ne / total_pop_ne) * 100
+
+aapi_pop_ratio_ne<- (aapi_pop_ne / total_pop_ne) * 100
 
 
 ### South
@@ -101,26 +123,49 @@ black_pop_south <- sum(south_df$black_pop_15to64, na.rm = TRUE)   # Total Black 
 
 white_pop_south <- sum(south_df$white_pop_15to64, na.rm = TRUE)   # Total white working population
 
+latinx_pop_south <- sum(south_df$latinx_pop_15to64, na.rm = TRUE)
+
+aapi_pop_south <- sum(south_df$aapi_pop_15to64, na.rm = TRUE)
+
 imprisoned_black_pop_south <- sum(south_df$black_jail_pop, na.rm = TRUE) +
   sum(south_df$black_prison_pop, na.rm = TRUE) # Number of imprisoned black people
 
 imprisoned_white_pop_south <- sum(south_df$white_jail_pop, na.rm =TRUE) +
   sum(south_df$white_prison_pop, na.rm= TRUE) # Number of imprisoned white people
 
+imprisoned_latinx_pop_south <- sum(south_df$latinx_jail_pop, na.rm =TRUE) +
+  sum(south_df$latinx_prison_pop, na.rm= TRUE)
+
+imprisoned_aapi_pop_south <- sum(south_df$aapi_jail_pop, na.rm =TRUE) +
+  sum(south_df$aapi_prison_pop, na.rm= TRUE)
+
 total_imprisoned_pop_south <- sum(south_df$total_jail_pop, na.rm = TRUE) + 
   sum(south_df$total_prison_pop, na.rm = TRUE) # Number of imprisoned Total
 
-black_imprisoned_ratio_to_prison_pop_south <- (imprisoned_black_pop_south / total_imprisoned_pop_south) * 100  # Ratio of black prisoners within the total prison population
+black_imprisoned_ratio_to_prison_pop_south <- (imprisoned_black_pop_south / total_imprisoned_pop_south)  # Ratio of black prisoners within the total prison population
 
-white_imprisoned_ratio_to_prison_pop_south <- (imprisoned_white_pop_south / total_imprisoned_pop_south) * 100 # Ratio of white prisoners within the total prison population
+white_imprisoned_ratio_to_prison_pop_south <- (imprisoned_white_pop_south / total_imprisoned_pop_south) # Ratio of white prisoners within the total prison population
+
+latinx_imprisoned_ratio_to_prison_pop_south <- (imprisoned_latinx_pop_south/ total_imprisoned_pop_south)
+
+aapi_imprisoned_ratio_to_prison_pop_south <- (imprisoned_aapi_pop_south/ total_imprisoned_pop_south)
 
 black_imprisoned_to_black_pop_ratio_south <- (imprisoned_black_pop_south / black_pop_south) * 100 # Ratio of black prisoners within the black population
 
 white_imprisoned_to_white_pop_ratio_south <- (imprisoned_white_pop_south / white_pop_south) * 100 # Ratio of white prisoners within the white population
 
+latinx_imprisoned_to_latinx_pop_ratio_south <- (imprisoned_latinx_pop_south / latinx_pop_south) * 100
+
+aapi_imprisoned_to_aapi_pop_ratio_south <- (imprisoned_aapi_pop_south / aapi_pop_south) * 100
+
 black_pop_ratio_south <- (black_pop_south / total_pop_south) * 100 # Ratio of black people in the total NE population
 
 white_pop_ratio_south <- (white_pop_south / total_pop_south) * 100 # Ratio of white people in the total NE population
+
+latinx_pop_ratio_south <- (latinx_pop_south / total_pop_south) * 100
+
+aapi_pop_ratio_south <- (aapi_pop_west / total_pop_south) * 100
+
 
 
 ### West
@@ -135,26 +180,48 @@ black_pop_west <- sum(west_df$black_pop_15to64, na.rm = TRUE)   # Total Black Wo
 
 white_pop_west <- sum(west_df$white_pop_15to64, na.rm = TRUE)   # Total white working population
 
+latinx_pop_west <- sum(west_df$latinx_pop_15to64, na.rm = TRUE)
+
+aapi_pop_west <- sum(west_df$aapi_pop_15to64, na.rm = TRUE)
+
 imprisoned_black_pop_west <- sum(west_df$black_jail_pop, na.rm = TRUE) +
   sum(west_df$black_prison_pop, na.rm = TRUE) # Number of imprisoned black people
 
 imprisoned_white_pop_west <- sum(west_df$white_jail_pop, na.rm =TRUE) +
   sum(west_df$white_prison_pop, na.rm= TRUE) # Number of imprisoned white people
 
+imprisoned_latinx_pop_west <- sum(west_df$latinx_jail_pop, na.rm =TRUE) +
+  sum(west_df$latinx_prison_pop, na.rm= TRUE)
+
+imprisoned_aapi_pop_west <- sum(west_df$aapi_jail_pop, na.rm =TRUE) +
+  sum(west_df$aapi_prison_pop, na.rm= TRUE)
+
 total_imprisoned_pop_west<- sum(west_df$total_jail_pop, na.rm = TRUE) + 
   sum(west_df$total_prison_pop, na.rm = TRUE) # Number of imprisoned Total
 
-black_imprisoned_ratio_to_prison_pop_west <- (imprisoned_black_pop_west/ total_imprisoned_pop_west) * 100  # Ratio of black prisoners within the total prison population
+black_imprisoned_ratio_to_prison_pop_west <- (imprisoned_black_pop_west/ total_imprisoned_pop_west)  # Ratio of black prisoners within the total prison population
 
-white_imprisoned_ratio_to_prison_pop_west <- (imprisoned_white_pop_west / total_imprisoned_pop_west) * 100 # Ratio of white prisoners within the total prison population
+white_imprisoned_ratio_to_prison_pop_west <- (imprisoned_white_pop_west / total_imprisoned_pop_west) # Ratio of white prisoners within the total prison population
+
+latinx_imprisoned_ratio_to_prison_pop_west <- (imprisoned_latinx_pop_west/ total_imprisoned_pop_west)
+
+aapi_imprisoned_ratio_to_prison_pop_west <- (imprisoned_aapi_pop_west/ total_imprisoned_pop_west)
 
 black_imprisoned_to_black_pop_ratio_west <- (imprisoned_black_pop_west / black_pop_west) * 100 # Ratio of black prisoners within the black population
 
 white_imprisoned_to_white_pop_ratio_west <- (imprisoned_white_pop_west / white_pop_west) * 100 # Ratio of white prisoners within the white population
 
+latinx_imprisoned_to_latinx_pop_ratio_west <- (imprisoned_latinx_pop_west / latinx_pop_west) * 100
+
+aapi_imprisoned_to_aapi_pop_ratio_west <- (imprisoned_aapi_pop_west / aapi_pop_west) * 100
+
 black_pop_ratio_west <- (black_pop_west / total_pop_west) * 100 # Ratio of black people in the total west population
 
 white_pop_ratio_west <- (white_pop_west / total_pop_west) * 100 # Ratio of white people in the total NE population
+
+latinx_pop_ratio_west <- (latinx_pop_west / total_pop_west) * 100
+
+aapi_pop_ratio_west <- (aapi_pop_west / total_pop_west) * 100
 
 
 ##Midwest
@@ -169,26 +236,49 @@ black_pop_mw <- sum(mw_df$black_pop_15to64, na.rm = TRUE)   # Total Black Workin
 
 white_pop_mw <- sum(mw_df$white_pop_15to64, na.rm = TRUE)   # Total white working population
 
+latinx_pop_mw <- sum(mw_df$latinx_pop_15to64, na.rm = TRUE)
+
+aapi_pop_mw <- sum(mw_df$aapi_pop_15to64, na.rm = TRUE)
+
 imprisoned_black_pop_mw <- sum(mw_df$black_jail_pop, na.rm = TRUE) +
   sum(mw_df$black_prison_pop, na.rm = TRUE) # Number of imprisoned black people
 
 imprisoned_white_pop_mw <- sum(mw_df$white_jail_pop, na.rm =TRUE) +
   sum(mw_df$white_prison_pop, na.rm= TRUE) # Number of imprisoned white people
 
+imprisoned_latinx_pop_mw <- sum(mw_df$latinx_jail_pop, na.rm =TRUE) +
+  sum(mw_df$latinx_prison_pop, na.rm= TRUE)
+
+imprisoned_aapi_pop_mw <- sum(mw_df$aapi_jail_pop, na.rm =TRUE) +
+  sum(mw_df$aapi_prison_pop, na.rm= TRUE)
+
 total_imprisoned_pop_mw <- sum(mw_df$total_jail_pop, na.rm = TRUE) + 
   sum(mw_df$total_prison_pop, na.rm = TRUE) # Number of imprisoned Total
 
-black_imprisoned_ratio_to_prison_pop_mw <- (imprisoned_black_pop_mw / total_imprisoned_pop_mw) * 100  # Ratio of black prisoners within the total prison population
+black_imprisoned_ratio_to_prison_pop_mw <- (imprisoned_black_pop_mw / total_imprisoned_pop_mw) # Ratio of black prisoners within the total prison population
 
-white_imprisoned_ratio_to_prison_pop_mw <- (imprisoned_white_pop_mw / total_imprisoned_pop_mw) * 100 # Ratio of white prisoners within the total prison population
+white_imprisoned_ratio_to_prison_pop_mw <- (imprisoned_white_pop_mw / total_imprisoned_pop_mw) # Ratio of white prisoners within the total prison population
+
+latinx_imprisoned_ratio_to_prison_pop_mw <- (imprisoned_latinx_pop_mw/ total_imprisoned_pop_west)
+
+aapi_imprisoned_ratio_to_prison_pop_mw <- (imprisoned_aapi_pop_mw/ total_imprisoned_pop_west)
 
 black_imprisoned_to_black_pop_ratio_mw <- (imprisoned_black_pop_mw / black_pop_mw) * 100 # Ratio of black prisoners within the black population
 
 white_imprisoned_to_white_pop_ratio_mw <- (imprisoned_white_pop_mw / white_pop_mw) * 100 # Ratio of white prisoners within the white population
 
+latinx_imprisoned_to_latinx_pop_ratio_mw <- (imprisoned_latinx_pop_mw / latinx_pop_mw) * 100
+
+aapi_imprisoned_to_aapi_pop_ratio_mw <- (imprisoned_aapi_pop_mw / aapi_pop_mw) * 100
+
 black_pop_ratio_mw <- (black_pop_mw / total_pop_mw) * 100 # Ratio of black people in the total NE population
 
 white_pop_ratio_mw <- (white_pop_mw / total_pop_mw) * 100 # Ratio of white people in the total NE population
+
+latinx_pop_ratio_mw <- (latinx_pop_mw / total_pop_mw) * 100
+
+aapi_pop_ratio_west <- (aapi_pop_mw / total_pop_mw) * 100
+
 
 ## Admission Rates
 
@@ -225,3 +315,30 @@ adm_final <- adm_total_df
 adm_final$black <- adm_black_df$avg_black_adm
 adm_final$white <- adm_white_df$avg_white_adm
 adm_final$latinx <- adm_latinx_df$avg_latinx_adm
+
+## For Variable Comparison 
+
+south <- c(black_imprisoned_ratio_to_prison_pop_south,
+           latinx_imprisoned_ratio_to_prison_pop_south,
+           white_imprisoned_ratio_to_prison_pop_south,
+           aapi_imprisoned_ratio_to_prison_pop_south)
+
+midwest <- c(black_imprisoned_ratio_to_prison_pop_mw,
+             latinx_imprisoned_ratio_to_prison_pop_mw,
+             white_imprisoned_ratio_to_prison_pop_mw,
+             aapi_imprisoned_ratio_to_prison_pop_mw)
+
+northeast <- c(black_imprisoned_ratio_to_prison_pop_ne,
+               latinx_imprisoned_ratio_to_prison_pop_ne,
+               white_imprisoned_ratio_to_prison_pop_ne,
+               aapi_imprisoned_ratio_to_prison_pop_ne)
+
+west <- c(black_imprisoned_ratio_to_prison_pop_west,
+          latinx_imprisoned_ratio_to_prison_pop_west,
+          white_imprisoned_ratio_to_prison_pop_west,
+          aapi_imprisoned_ratio_to_prison_pop_west)
+
+race <- c('Black','Latinx','White','AAPI')
+
+variable_comparison_df <- data.frame(south,midwest,northeast,west,race)
+vc_final_melt <- melt(variable_comparison_df, id.vars='race')
