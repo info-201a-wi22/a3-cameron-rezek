@@ -3,6 +3,7 @@ library('dplyr')
 library('tidyr')
 library('stringr')
 library('lubridate')
+library('ggplot2')
 
 
 incarceration_trends <- read.csv('https://raw.githubusercontent.com/vera-institute/incarceration-trends/master/incarceration_trends.csv')
@@ -151,7 +152,7 @@ black_imprisoned_to_black_pop_ratio_west <- (imprisoned_black_pop_west / black_p
 
 white_imprisoned_to_white_pop_ratio_west <- (imprisoned_white_pop_west / white_pop_west) * 100 # Ratio of white prisoners within the white population
 
-black_pop_ratio_west <- (black_pop_west / total_pop_west) * 100 # Ratio of black people in the total NE population
+black_pop_ratio_west <- (black_pop_west / total_pop_west) * 100 # Ratio of black people in the total west population
 
 white_pop_ratio_west <- (white_pop_west / total_pop_west) * 100 # Ratio of white people in the total NE population
 
@@ -189,3 +190,38 @@ black_pop_ratio_mw <- (black_pop_mw / total_pop_mw) * 100 # Ratio of black peopl
 
 white_pop_ratio_mw <- (white_pop_mw / total_pop_mw) * 100 # Ratio of white people in the total NE population
 
+## Admission Rates
+
+
+adm_black_df <- incarceration_trends %>%
+  filter(black_prison_adm != "NA") %>%
+  filter(year >= 1985 & year <= 2015) %>%
+  group_by(year) %>%
+  summarise(avg_black_adm = mean(black_prison_adm)) %>%
+  arrange(year)
+
+adm_white_df <- incarceration_trends %>%
+  filter(white_prison_adm != "NA") %>%
+  filter(year >= 1985 & year <= 2015) %>%
+  group_by(year) %>%
+  summarise(avg_white_adm = mean(white_prison_adm)) %>%
+  arrange(year)
+
+adm_latinx_df <- incarceration_trends %>%
+  filter(latinx_prison_adm != "NA") %>%
+  filter(year >= 1985 & year <= 2015) %>%
+  group_by(year) %>%
+  summarise(avg_latinx_adm = mean(latinx_prison_adm)) %>%
+  arrange(year)
+
+adm_total_df <- incarceration_trends %>%
+  filter(total_prison_adm != "NA") %>%
+  filter(year >= 1985 & year <= 2015) %>%
+  group_by(year) %>%
+  summarise(total_prison_adm = mean(total_prison_adm)) %>%
+  arrange(year)
+
+adm_final <- adm_total_df
+adm_final$black <- adm_black_df$avg_black_adm
+adm_final$white <- adm_white_df$avg_white_adm
+adm_final$latinx <- adm_latinx_df$avg_latinx_adm
