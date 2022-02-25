@@ -1,15 +1,18 @@
-library('tidyverse')
-library('dplyr')
-library('tidyr')
-library('stringr')
-library('lubridate')
-library('ggplot2')
+library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(lubridate)
+library(ggplot2)
+library(wesanderson)
+library(reshape2)
+library(maps)
+library(RColorBrewer)
+library(qdap)
 
 
 incarceration_trends <- read.csv('https://raw.githubusercontent.com/vera-institute/incarceration-trends/master/incarceration_trends.csv')
-View(incarceration_trends)
 variables <- colnames(incarceration_trends)
-variables
 
 # DFs
 
@@ -25,23 +28,23 @@ past_df <- incarceration_trends %>%
 ### Prison Numbers
 
 imprisoned_black_pop_present <- round(sum(present_day_df$black_prison_pop,
-                                    na.rm = TRUE) + sum(present_day_df$black_jail_pop,
-                                                        na.rm = TRUE))
+                                          na.rm = TRUE) + sum(present_day_df$black_jail_pop,
+                                                              na.rm = TRUE))
 imprisoned_black_pop_past <- round(sum(past_df$black_prison_pop, na.rm = TRUE) +
-  sum(past_df$black_jail_pop, na.rm =TRUE))
+                                     sum(past_df$black_jail_pop, na.rm =TRUE))
 
 imprisoned_white_pop_present <- round(sum(present_day_df$white_prison_pop,
                                           na.rm = TRUE) + sum(present_day_df$white_jail_pop,
                                                               na.rm = TRUE))
 
 imprisoned_white_pop_past <- round(sum(past_df$white_prison_pop, na.rm = TRUE) +
-  sum(past_df$white_jail_pop, na.rm =TRUE))
+                                     sum(past_df$white_jail_pop, na.rm =TRUE))
 
 total_imprisoned_present <- round(sum(present_day_df$total_prison_pop, na.rm = TRUE) + 
-  sum(present_day_df$total_jail_pop, na.rm = TRUE))
+                                    sum(present_day_df$total_jail_pop, na.rm = TRUE))
 
 total_imprisoned_past <- round(sum(past_df$total_prison_pop, na.rm =TRUE) +
-  sum(past_df$total_jail_pop, na.rm =TRUE))
+                                 sum(past_df$total_jail_pop, na.rm =TRUE))
 
 ### Total Population (15-64)
 
@@ -342,3 +345,139 @@ race <- c('Black','Latinx','White','AAPI')
 
 variable_comparison_df <- data.frame(south,midwest,northeast,west,race)
 vc_final_melt <- melt(variable_comparison_df, id.vars='race')
+
+## Sum Info
+
+summary_info <- list()
+
+summary_info$black_prisoner_increase <- imprisoned_black_pop_present -
+  imprisoned_black_pop_past
+summary_info$white_prisoner_increase <- imprisoned_white_pop_present -
+  imprisoned_white_pop_past
+
+summary_info$black_pop_percentage_imprisoned <- round(
+  (imprisoned_black_pop_present /
+     black_pop_present) * 100, digits = 2)
+summary_info$white_pop_percentage_imprisoned <- round(
+  (imprisoned_white_pop_present /
+     white_pop_present) * 100, digits = 2)
+
+summary_info$ne_percentage_of_prisoners_black <- 
+  round(black_imprisoned_ratio_to_prison_pop_ne * 100)
+summary_info$ne_percentage_of_prisoners_white <- round(
+  white_imprisoned_ratio_to_prison_pop_ne * 100)
+
+
+summary_info$west_percentage_of_prisoners_black <- round(
+  black_imprisoned_ratio_to_prison_pop_west * 100)
+summary_info$west_percentage_of_prisoners_white <- round(
+  white_imprisoned_ratio_to_prison_pop_west * 100)
+
+summary_info$mw_percentage_of_prisoners_black <- round(
+  black_imprisoned_ratio_to_prison_pop_mw * 100)
+summary_info$mw_percentage_of_prisoners_white <- round(
+  white_imprisoned_ratio_to_prison_pop_mw * 100)
+
+summary_info$south_percentage_of_prisoners_black <- round(
+  black_imprisoned_ratio_to_prison_pop_south * 100)
+summary_info$south_percentage_of_prisoners_white <- round(
+  white_imprisoned_ratio_to_prison_pop_south * 100)
+
+summary_info$ne_percentage_of_pop_black <- round(
+  black_pop_ratio_ne)
+summary_info$ne_percentage_of_pop_white <- round(
+  white_pop_ratio_ne)
+
+summary_info$west_percentage_of_pop_black <- round(
+  black_pop_ratio_west)
+summary_info$west_percentage_of_pop_white <- round(
+  white_pop_ratio_west)
+
+summary_info$mw_percentage_of_pop_black <- round(
+  black_pop_ratio_mw)
+summary_info$mw_percentage_of_pop_white <- round(
+  white_pop_ratio_mw)
+
+summary_info$south_percentage_of_pop_black <- round(
+  black_pop_ratio_south)
+summary_info$south_percentage_of_pop_white <- round(
+  white_pop_ratio_south)
+
+## Charts
+
+adm_final_melt <- melt(adm_final, id.vars='year')
+
+over_time_plot <- ggplot(adm_final_melt, aes(x=year, y=value, color=variable))+ 
+  geom_line(size=1.3)+
+  scale_color_manual(values= wes_palette("Rushmore1", n = 4), name="Race",
+                     labels=c("total_prison_adm"="Total",
+                              "black"="Black",
+                              "white"="White",
+                              "latinx"="Latinx"))+
+  theme_classic()+
+  labs(
+    title = "Average Prison Admission in All Counties",
+    subtitle = "(1985-2015)",
+    y = "Average"
+  )+
+  theme(panel.background = element_rect(fill = 'Azure'))+
+  theme(panel.grid.major = element_line(color = "grey",
+                                        size = 0.5,
+                                        linetype = 2))+
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme(plot.subtitle = element_text(hjust = 0.5))
+
+
+variable_comparison_chart <- ggplot(vc_final_melt, aes(x = variable, y = value, fill = race))+
+  geom_bar(position = "fill", stat = "identity", color='black', width=0.9)+
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Percentage of Prisoners by Ethnicity in Each Region",
+    subtitle = "(Data from 2015)"
+  )+
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme(plot.subtitle = element_text(hjust = 0.5))
+
+
+
+imprisoned_population <- incarceration_trends %>%
+  filter(year == "2015")
+imprisoned_population$state <- mgsub(state.abb, state.name, imprisoned_population$state)
+imprisoned_population$state <- tolower(imprisoned_population$state)
+imprisoned_population$region <- imprisoned_population$state
+imprisoned_population <- imprisoned_population %>%
+  select(black_prison_pop,black_jail_pop,region)%>%
+  mutate_all(~replace(.,is.na(.),0))%>%
+  group_by(region)%>%
+  summarise(total = sum(black_jail_pop+black_prison_pop))
+
+
+us_states_copy <- map_data("state")
+us_states <- map_data("state")
+us_states <- us_states%>%
+  left_join(imprisoned_population, by="region")
+
+map_chart <- ggplot(us_states, aes(long,lat,group=group))+
+  geom_polygon(aes(fill=total),color="black")+
+  scale_fill_gradient(name="# of Incarcerated", low="yellow",high="red")+
+  labs(title= "Black Incarceration in the US",
+       subtitle= "(Data from 2015)")+
+  theme_minimal()+
+  theme(
+    axis.line = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    # panel.grid.minor = element_line(color = "#ebebe5", size = 0.2),
+    panel.grid.major = element_line(color = "#ebebe5", size = 0.2),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(fill = "#f5f5f2", color = NA), 
+    panel.background = element_rect(fill = "#f5f5f2", color = NA), 
+    legend.background = element_rect(fill = "#f5f5f2", color = NA),
+    panel.border = element_blank()
+  )
+
+
+
